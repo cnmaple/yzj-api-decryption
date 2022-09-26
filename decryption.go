@@ -1,4 +1,5 @@
-package yzj_api_decryption
+// Package yzjapidecryption is yunzhijia api decryption
+package yzjapidecryption
 
 import (
 	"bytes"
@@ -7,7 +8,7 @@ import (
 	"crypto/cipher"
 	"encoding/base64"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"io/ioutil"
 	"net/http"
 )
@@ -19,7 +20,9 @@ type Config struct {
 
 // CreateConfig creates the default plugin configuration.
 func CreateConfig() *Config {
-	return &Config{}
+	return &Config{
+		CloudFlowKey: "",
+	}
 }
 
 // YzjDecryptionPlugin yzj decryption plugin.
@@ -32,7 +35,7 @@ type YzjDecryptionPlugin struct {
 // New created a yzj decryption plugin.
 func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
 	if len(config.CloudFlowKey) == 0 {
-		return nil, fmt.Errorf("cloudFlowKey cannot be empty")
+		return nil, errors.New("cloudFlowKey cannot be empty")
 	}
 	return &YzjDecryptionPlugin{
 		cloudFlowKey: config.CloudFlowKey,
@@ -70,14 +73,14 @@ func (a *YzjDecryptionPlugin) ServeHTTP(rw http.ResponseWriter, req *http.Reques
 	a.next.ServeHTTP(rw, req)
 }
 
-func DecodeBody(body string, key string) (string, error) {
+// DecodeBody decode body for key.
+func DecodeBody(body, key string) (string, error) {
 	descBytes, err := base64.StdEncoding.DecodeString(body)
 	if err != nil {
 		return "", err
 	}
 	jsonStr, err := aesDecrypt(descBytes, []byte(key))
 	if err != nil {
-		fmt.Println(err.Error())
 		return "", err
 	}
 	return string(jsonStr), nil

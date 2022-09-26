@@ -1,14 +1,15 @@
-package yzj_api_decryption_test
+package yzjapidecryption_test
 
 import (
 	"bytes"
 	"context"
 	"fmt"
-	yzjdecryption "github.com/cnmaple/yzj_api_decryption"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	yzjdecryption "github.com/cnmaple/yzj-api-decryption"
 )
 
 func TestDecodeBody(t *testing.T) {
@@ -20,6 +21,7 @@ func TestDecodeBody(t *testing.T) {
 	}
 	fmt.Println("decodeBody:", jsonStr)
 }
+
 func TestYzjDecryptionPlugin(t *testing.T) {
 	cfg := yzjdecryption.CreateConfig()
 
@@ -57,5 +59,4 @@ func assertBody(t *testing.T, req *http.Request, expected string) {
 		errorMsg := req.Header.Get("errorMsg")
 		t.Errorf("decryption Body error,the decryption:%v,error message: %v ", decryption, errorMsg)
 	}
-
 }
