@@ -1,4 +1,4 @@
-package yzjdecryption_test
+package yzj_api_decryption_test
 
 import (
 	"bytes"

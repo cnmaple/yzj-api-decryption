@@ -1,4 +1,4 @@
-package yzjdecryption
+package yzj_api_decryption
 
 import (
 	"bytes"
@@ -32,6 +32,7 @@ type YzjDecryptionPlugin struct {
 
 // New created a yzj decryption plugin.
 func New(ctx context.Context, next http.Handler, config *Config, name string) (http.Handler, error) {
+	fmt.Errorf("cloudFlowKey cannot be empty")
 	if len(config.CloudFlowKey) == 0 {
 		return nil, fmt.Errorf("cloudFlowKey cannot be empty")
 	}
