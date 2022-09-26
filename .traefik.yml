@@ -1,12 +1,10 @@
-displayName: Demo Plugin
+displayName: Yunzhijia Open API Decryption Plugin
 type: middleware
 iconPath: .assets/icon.png
 
-import: github.com/traefik/plugindemo
+import: github.com/cnmaple/yzj_api_decryption
 
-summary: '[Demo] Add Request Header'
+summary: 'Decryption Yunzhijia Open API Data'
 
 testData:
-  Headers:
-    X-Demo: test
-    X-URL: '{{URL}}'
+  CloudFlowKey: xxx123123
