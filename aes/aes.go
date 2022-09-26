@@ -5,14 +5,14 @@ import (
 	"crypto/cipher"
 )
 
-// PKCS5UnPadding PKCS5
+// PKCS5UnPadding PKCS5.
 func PKCS5UnPadding(origData []byte) []byte {
 	length := len(origData)
 	unpadding := int(origData[length-1])
 	return origData[:(length - unpadding)]
 }
 
-// AesDecrypt ECB PKCS5
+// AesDecrypt ECB PKCS5.
 func AesDecrypt(crypted, key []byte) ([]byte, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
