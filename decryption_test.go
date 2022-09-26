@@ -18,8 +18,7 @@ func TestDecodeBody(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("解析结果:", jsonStr)
-	//var results Results
+	fmt.Println("decodeBody:", jsonStr)
 }
 func TestYzjDecryptionPlugin(t *testing.T) {
 	cfg := yzjdecryption.CreateConfig()
