@@ -9,7 +9,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	yzjdecryption "github.com/cnmaple/yzj-api-decryption"
+	yzjdecryption "github.com/cnmaple/yzjapidecryption"
 )
 
 func TestDecodeBody(t *testing.T) {

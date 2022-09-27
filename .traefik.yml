@@ -1,7 +1,7 @@
 displayName: Yunzhijia Open API Decryption Plugin
 type: middleware
 iconPath: .assets/icon.png
-import: github.com/cnmaple/yzj-api-decryption
+import: github.com/cnmaple/yzjapidecryption
 summary: 'Decryption Yunzhijia Open API Data'
 testData:
   CloudFlowKey: xxx123123

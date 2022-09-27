@@ -8,7 +8,7 @@ The following snippet shows how to configure this plugin with the File provider 
 Static:
 ```toml
 [experimental.plugins.yzjapidecryption]
-  modulename = "github.com/cnmaple/yzj-api-decryption"
+  modulename = "github.com/cnmaple/yzjapidecryption"
   version = "v1.0.0"
 ```
 

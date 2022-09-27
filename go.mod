@@ -1,3 +1,3 @@
-module github.com/cnmaple/yzj-api-decryption
+module github.com/cnmaple/yzjapidecryption
 
 go 1.17
