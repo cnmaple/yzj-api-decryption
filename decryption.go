@@ -129,7 +129,7 @@ func aesDecrypt(crypted, key []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	blockMode := NewECBDecrypter(block)
+	blockMode := newECBDecrypter(block)
 	origData := make([]byte, len(crypted))
 	err = blockMode.CryptBlocks(origData, crypted)
 	if err != nil {
@@ -153,8 +153,8 @@ func newECB(b cipher.Block) *ecb {
 
 type ecbDecrypter ecb
 
-// NewECBDecrypter returns a BlockMode which decrypts in electronic code book mode, using the given Block.
-func NewECBDecrypter(b cipher.Block) *ecbDecrypter {
+// newECBDecrypter returns a BlockMode which decrypts in electronic code book mode, using the given Block.
+func newECBDecrypter(b cipher.Block) *ecbDecrypter {
 	return (*ecbDecrypter)(newECB(b))
 }
 func (x *ecbDecrypter) BlockSize() int { return x.blockSize }

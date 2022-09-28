@@ -53,7 +53,6 @@ func TestYzjDecryptionPlugin(t *testing.T) {
 	}
 	handler.ServeHTTP(recorder, req)
 	assertHead(t, req, "crypto/cipher: input not full blocks")
-
 }
 
 func assertHead(t *testing.T, req *http.Request, expected string) {
