@@ -9,7 +9,7 @@ Static:
 ```toml
 [experimental.plugins.yzjapidecryption]
   modulename = "github.com/cnmaple/yzjapidecryption"
-  version = "v1.0.0"
+  version = "v1.0.1"
 ```
 
 Dynamic:

@@ -57,8 +57,8 @@ func (a *YzjDecryptionPlugin) ServeHTTP(rw http.ResponseWriter, req *http.Reques
 		req.Header.Set("decryption", "false")
 		req.Header.Set("errorMsg", "content to short")
 		a.next.ServeHTTP(rw, req)
+		return
 	}
-
 	jsonStr, err := DecodeBody(string(body), a.cloudFlowKey)
 	if err != nil {
 		req.Header.Set("decryption", "false")
