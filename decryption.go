@@ -2,7 +2,6 @@
 package yzjapidecryption
 
 import (
-	"bytes"
 	"context"
 	"crypto/aes"
 	"crypto/cipher"
@@ -11,6 +10,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 // Config the plugin configuration.
@@ -52,6 +52,12 @@ func (a *YzjDecryptionPlugin) ServeHTTP(rw http.ResponseWriter, req *http.Reques
 		a.next.ServeHTTP(rw, req)
 		return
 	}
+	// 字符太少
+	if len(body) < 16 {
+		req.Header.Set("decryption", "false")
+		req.Header.Set("errorMsg", "content to short")
+		a.next.ServeHTTP(rw, req)
+	}
 
 	jsonStr, err := DecodeBody(string(body), a.cloudFlowKey)
 	if err != nil {
@@ -69,7 +75,8 @@ func (a *YzjDecryptionPlugin) ServeHTTP(rw http.ResponseWriter, req *http.Reques
 		return
 	}
 	req.Header.Set("decryption", "true")
-	req.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(jsonStr)))
+	req.Body = ioutil.NopCloser(strings.NewReader(jsonStr))
+	req.ContentLength = int64(len(jsonStr))
 	a.next.ServeHTTP(rw, req)
 }
 

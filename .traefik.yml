@@ -4,4 +4,4 @@ iconPath: .assets/icon.png
 import: github.com/cnmaple/yzjapidecryption
 summary: 'Decryption Yunzhijia Open API Data'
 testData:
-  CloudFlowKey: xxx123123
+  cloudFlowKey: xxx123123

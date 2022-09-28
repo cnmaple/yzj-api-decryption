@@ -17,7 +17,7 @@ Dynamic:
 ```toml
 [http.middlewares]
   [http.middlewares.my-yzjapidecryption.plugin.yzjapidecryption]
-    CloudFlowKey = "Your Yzj API CloudFlowKey"
+    cloudFlowKey = "Your Yzj API CloudFlowKey"
 ```
 
 ```yaml
@@ -26,11 +26,11 @@ http:
    my-yzjapidecryption:
       plugin:
         yzjapidecryption:
-          CloudFlowKey: Your Yzj API CloudFlowKey
+          cloudFlowKey: Your Yzj API CloudFlowKey
 ```
 
 ### Options
 
-#### CloudFlowKey (`CloudFlowKey`)
+#### cloudFlowKey (`cloudFlowKey`)
 
 The Yzj Open API CloudFlowKey
