@@ -40,8 +40,37 @@ func TestYzjDecryptionPlugin(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	handler.ServeHTTP(recorder, req)
 	assertBody(t, req, "{\"data\":{\"formInfo\":{\"widgetMap\":{\"Ds_0\":{\"eid\":\"112345\",\"codeId\":\"Ds_0\",\"extendFieldMap\":{},\"deptSpecify\":[],\"deptTypeSetting\":\"allBusinessUnit\",\"title\":\"发起部门\",\"type\":\"departmentSelectWidget\",\"deptInfo\":[],\"selectCompanyOnly\":false,\"option\":\"single\"},\"_S_SERIAL\":{\"codeId\":\"_S_SERIAL\",\"title\":\"流水号\",\"type\":\"serialNumWidget\"},\"_S_DATE\":{\"codeId\":\"_S_DATE\",\"fromNowOn\":false,\"title\":\"申请日期\",\"type\":\"dateWidget\",\"value\":123},\"_S_APPLY\":{\"eid\":\"112345\",\"codeId\":\"_S_APPLY\",\"existEcosphere\":false,\"title\":\"提交人\",\"type\":\"personSelectWidget\"},\"success\":true,\"errorCode\":0}}}}")
+
+	// test error code
+	recorder = httptest.NewRecorder()
+	bodyStr = "xUCqrAxA/cxr0oXA7AyrCmRU"
+	req, err = http.NewRequestWithContext(ctx, http.MethodPost, "http://localhost", ioutil.NopCloser(strings.NewReader(bodyStr)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	handler.ServeHTTP(recorder, req)
+	assertHead(t, req, "crypto/cipher: input not full blocks")
+
+}
+
+func assertHead(t *testing.T, req *http.Request, expected string) {
+	t.Helper()
+	body, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		t.Errorf("read Body value: %s", err.Error())
+	}
+	decryption := req.Header.Get("decryption")
+	if decryption == "true" {
+		t.Errorf(" Body value: %s  the decryption:%s", string(body), decryption)
+	} else {
+		errorMsg := req.Header.Get("errorMsg")
+		if errorMsg != expected {
+			t.Errorf(" Body value: %s  the errorMsg:%s", string(body), errorMsg)
+		}
+	}
 }
 
 func assertBody(t *testing.T, req *http.Request, expected string) {
